@@ -2,7 +2,7 @@ package com.square.workforce;
 
 import android.app.Application;
 
-class WorkForceApplication extends Application {
+public class WorkForceApplication extends Application {
   static WorkForceApplication application;
 
   @Override

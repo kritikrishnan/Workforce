@@ -27,7 +27,7 @@ public class Employee {
   @SerializedName("image_url_small")
   private Url photoUrlSmall;
 
-  private String Team;
+  private String team;
 
   @SerializedName("employee_type")
   private String employeeType;

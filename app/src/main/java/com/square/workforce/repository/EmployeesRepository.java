@@ -16,7 +16,7 @@ import retrofit2.Response;
 */
 public class EmployeesRepository {
 
-  final MutableLiveData<List<Employee>> mutableEmployees = new MutableLiveData<>();
+  final MutableLiveData<List<Employee>> employeesLiveData = new MutableLiveData<>();
   private static EmployeesRepository employeesRepository;
 
   public static EmployeesRepository getInstance(){
@@ -37,17 +37,17 @@ public class EmployeesRepository {
       @Override
       public void onResponse(Call<List<Employee>> call, Response<List<Employee>> response) {
         if (response.isSuccessful()) {
-          mutableEmployees.setValue(response.body());
+          employeesLiveData.setValue(response.body());
         }
         //TODO: handle else
       }
 
       @Override
-      public void onFailure(Call<List<Employee>> call, Throwable t) {
+      public void onFailure(Call<List<Employee>> call, Throwable throwable) {
         //TODO: handle failure
       }
     });
 
-    return mutableEmployees;
+    return employeesLiveData;
   }
 }
