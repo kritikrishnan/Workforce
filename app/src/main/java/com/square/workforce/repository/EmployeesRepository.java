@@ -16,4 +16,38 @@ import retrofit2.Response;
 */
 public class EmployeesRepository {
 
+  final MutableLiveData<List<Employee>> mutableEmployees = new MutableLiveData<>();
+  private static EmployeesRepository employeesRepository;
+
+  public static EmployeesRepository getInstance(){
+    if (employeesRepository == null){
+      employeesRepository = new EmployeesRepository();
+    }
+    return employeesRepository;
+  }
+
+  private EmployeeApi employeeApi;
+
+  public EmployeesRepository(){
+    employeeApi = RetrofitService.employeesService(EmployeeApi.class);
+  }
+
+  public MutableLiveData<List<Employee>> getEmployees(){
+    employeeApi.getEmployees().enqueue(new Callback<List<Employee>>() {
+      @Override
+      public void onResponse(Call<List<Employee>> call, Response<List<Employee>> response) {
+        if (response.isSuccessful()) {
+          mutableEmployees.setValue(response.body());
+        }
+        //TODO: handle else
+      }
+
+      @Override
+      public void onFailure(Call<List<Employee>> call, Throwable t) {
+        //TODO: handle failure
+      }
+    });
+
+    return mutableEmployees;
+  }
 }
