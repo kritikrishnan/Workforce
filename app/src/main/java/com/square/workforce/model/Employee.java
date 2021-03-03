@@ -30,6 +30,6 @@ public class Employee {
   private String team;
 
   @SerializedName("employee_type")
-  private String employeeType;
+  private String role;
 
 }

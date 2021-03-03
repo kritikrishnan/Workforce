@@ -1,3 +1,10 @@
 <resources>
-  <string name="app_name">Workforce</string>
+  <string name="app_name"><u><b>Workforce</b></u></string>
+  <string name="employee_image_small">employee image small</string>
+  <string name="employee_name_label"><u><b>Name</b></u></string>
+  <string name="employee_role_label"><u><b>Role</b></u></string>
+  <string name="employee_team_label"><u><b>Team</b></u></string>
+  <string name="employee_email_label"><u><b>Email address</b></u></string>
+  <string name="employee_phone_number"><u><b>Phone number</b></u></string>
+  <string name="employee_biography_label"><u><b>Biography</b></u></string>
 </resources>

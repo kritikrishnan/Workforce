@@ -12,7 +12,9 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 /*
- Uses LiveData to observe changes to data used in this project
+ Uses LiveData to observe changes to data used in this project.
+ This is a Singleton class - We only want a single instance of Employees repository floating around in the app.
+ Multiple instances would mean the possibility of multiple sets of data
 */
 public class EmployeesRepository {
 

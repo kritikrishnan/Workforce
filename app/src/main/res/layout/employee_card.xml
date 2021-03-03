@@ -1,11 +1,123 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-  android:layout_width="match_parent"
-  android:layout_height="match_parent"
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
   xmlns:app="http://schemas.android.com/apk/res-auto">
 
-<androidx.cardview.widget.CardView
-  android:layout_width="match_parent"
-  android:layout_height="match_parent" />
+  <androidx.cardview.widget.CardView
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+    <androidx.constraintlayout.widget.ConstraintLayout
+      android:layout_width="match_parent"
+      android:layout_height="match_parent">
+
+      <ImageButton
+        android:id="@+id/employee_imageview"
+        android:layout_width="300dp"
+        android:layout_height="match_parent"
+        android:layout_margin="24dp"
+        android:contentDescription="@string/employee_image_small"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+      <TextView
+        android:id="@+id/employee_name_label"
+        style="@style/TextLabel"
+        android:text="@string/employee_name_label"
+
+        app:layout_constraintStart_toEndOf="@+id/employee_imageview"
+        app:layout_constraintTop_toTopOf="parent" />
+
+      <TextView
+        android:id="@+id/employee_name"
+        android:text="@{model.fullName}"
+        style="@style/TextBody"
+        app:layout_constraintStart_toEndOf="@+id/employee_email_label"
+        app:layout_constraintTop_toTopOf="parent" />
+
+      <TextView
+        android:id="@+id/employee_type_label"
+        android:text="@string/employee_role_label"
+        style="@style/TextLabel"
+        app:layout_constraintStart_toEndOf="@+id/employee_imageview"
+        app:layout_constraintTop_toBottomOf="@id/employee_name_label" />
+
+      <TextView
+        android:id="@+id/employee_type"
+        android:text="@{model.role}"
+        style="@style/TextBody"
+        app:layout_constraintStart_toEndOf="@+id/employee_email_label"
+        app:layout_constraintTop_toBottomOf="@id/employee_name" />
+
+      <TextView
+        android:id="@+id/employee_team_label"
+        android:text="@string/employee_team_label"
+        style="@style/TextLabel"
+        app:layout_constraintStart_toEndOf="@+id/employee_imageview"
+        app:layout_constraintTop_toBottomOf="@id/employee_type_label" />
+
+      <TextView
+        android:id="@+id/employee_team"
+        android:text="@{model.team}"
+        style="@style/TextBody"
+        app:layout_constraintStart_toEndOf="@+id/employee_email_label"
+        app:layout_constraintTop_toBottomOf="@id/employee_type" />
+
+      <TextView
+        android:id="@+id/employee_email_label"
+        android:text="@string/employee_email_label"
+        style="@style/TextLabel"
+        app:layout_constraintStart_toEndOf="@+id/employee_imageview"
+        app:layout_constraintTop_toBottomOf="@id/employee_team_label" />
+
+      <TextView
+        android:id="@+id/employee_email"
+        android:text="@{model.emailAddress}"
+        style="@style/TextBody"
+        app:layout_constraintStart_toEndOf="@+id/employee_email_label"
+        app:layout_constraintTop_toBottomOf="@id/employee_team" />
+
+      <TextView
+        android:id="@+id/employee_phnumber_label"
+        android:text="@string/employee_phone_number"
+        style="@style/TextLabel"
+        app:layout_constraintStart_toEndOf="@+id/employee_imageview"
+        app:layout_constraintTop_toBottomOf="@id/employee_email_label" />
+
+      <TextView
+        android:id="@+id/employee_phnumber"
+        android:text="@{model.phoneNumber}"
+        style="@style/TextBody"
+        app:layout_constraintStart_toEndOf="@+id/employee_email_label"
+        app:layout_constraintTop_toBottomOf="@id/employee_email" />
+
+      <TextView
+        android:id="@+id/employee_biography_label"
+        android:text="@string/employee_biography_label"
+        style="@style/TextLabel"
+        app:layout_constraintStart_toEndOf="@+id/employee_imageview"
+        app:layout_constraintTop_toBottomOf="@id/employee_phnumber_label" />
+
+      <TextView
+        android:id="@+id/employee_biography"
+        android:text="@{model.biography}"
+        style="@style/TextBody"
+        app:layout_constraintStart_toEndOf="@+id/employee_email_label"
+        app:layout_constraintTop_toBottomOf="@id/employee_phnumber" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+  </androidx.cardview.widget.CardView>
+
+
+  <data>
+
+    <variable
+      name="model"
+      type="com.square.workforce.model.Employee" />
+
+    <variable
+      name="viewModel"
+      type="com.square.workforce.WorkForceViewModel" />
+  </data>
+
+
+</layout>

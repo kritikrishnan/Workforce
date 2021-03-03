@@ -1,5 +1,7 @@
 package com.square.workforce;
 
+import android.app.Application;
+
 import com.square.workforce.model.Employee;
 import com.square.workforce.repository.EmployeesRepository;
 
@@ -11,7 +13,6 @@ import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 import lombok.NonNull;
-import lombok.Setter;
 
 /*
 BusinessLogic.
@@ -19,11 +20,13 @@ BusinessLogic.
 public class WorkForceViewModel extends ViewModel {
   private static final String SORT_BY_NAME = "name";
   MutableLiveData<List<Employee>> employeesLiveData;
+  Application appContext;
 
   private EmployeesRepository employeesRepository;
 
-  public WorkForceViewModel() {
+  public WorkForceViewModel(WorkForceApplication workforceApplicationContext) {
     super();
+    appContext = workforceApplicationContext;
     init();
   }
 
@@ -32,14 +35,14 @@ public class WorkForceViewModel extends ViewModel {
       return;
     }
     employeesRepository = EmployeesRepository.getInstance();
+    getEmployees();
+    sortEmployeesByParameter(SORT_BY_NAME);
   }
 
-  //initialize MutableLiveData<List<Employee>> employees by lazy in the getter instead of in init()
-  public LiveData<List<Employee>> getEmployees() {
+  public void getEmployees() {
     if (employeesLiveData == null) {
       employeesLiveData = employeesRepository.getEmployees();
     }
-    return employeesLiveData;
   }
 
    public void sortEmployeesByParameter(@NonNull final String sortingParameter) {
@@ -48,6 +51,7 @@ public class WorkForceViewModel extends ViewModel {
 
        default: break;
      }
+     employeesLiveData.postValue(employeesLiveData.getValue()); //post to update change in data
    }
 
   private void sortEmployeesByName() {
@@ -59,7 +63,5 @@ public class WorkForceViewModel extends ViewModel {
       }
     };
     Collections.sort(employeesLiveData.getValue(), comparator);
-    employeesLiveData.postValue(employeesLiveData.getValue()); //post to update change in data
   }
-
 }
