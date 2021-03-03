@@ -1,32 +1,32 @@
 package com.square.workforce;
 
-import android.app.Application;
 
 import com.square.workforce.model.Employee;
 import com.square.workforce.repository.EmployeesRepository;
+import com.square.workforce.view.adapter.BindableAdapter;
 
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 
-import androidx.lifecycle.LiveData;
+import androidx.annotation.NonNull;
+import androidx.databinding.BindingAdapter;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
-import lombok.NonNull;
+import androidx.recyclerview.widget.RecyclerView;
 
 /*
 BusinessLogic.
  */
 public class WorkForceViewModel extends ViewModel {
   private static final String SORT_BY_NAME = "name";
-  MutableLiveData<List<Employee>> employeesLiveData;
-  Application appContext;
+  private MutableLiveData<List<Employee>> employeesLiveData;
+  public List<Employee> employees;
 
   private EmployeesRepository employeesRepository;
 
-  public WorkForceViewModel(WorkForceApplication workforceApplicationContext) {
+  public WorkForceViewModel() {
     super();
-    appContext = workforceApplicationContext;
     init();
   }
 
@@ -35,14 +35,13 @@ public class WorkForceViewModel extends ViewModel {
       return;
     }
     employeesRepository = EmployeesRepository.getInstance();
-    getEmployees();
-    sortEmployeesByParameter(SORT_BY_NAME);
+    populateEmployees();
   }
 
-  public void getEmployees() {
-    if (employeesLiveData == null) {
-      employeesLiveData = employeesRepository.getEmployees();
-    }
+  public void populateEmployees() {
+    employeesLiveData = employeesRepository.getEmployees();
+    sortEmployeesByParameter(SORT_BY_NAME);
+    employees = employeesLiveData.getValue();
   }
 
    public void sortEmployeesByParameter(@NonNull final String sortingParameter) {
@@ -63,5 +62,12 @@ public class WorkForceViewModel extends ViewModel {
       }
     };
     Collections.sort(employeesLiveData.getValue(), comparator);
+  }
+
+  @BindingAdapter("employees")
+  public void bindEmployeeDataToRecyclerViewAdapter(@NonNull final RecyclerView recyclerView, final List<Employee> employees) {
+    if (recyclerView.getAdapter() instanceof BindableAdapter) {
+      ((BindableAdapter)recyclerView.getAdapter()).setData(employees);
+    }
   }
 }

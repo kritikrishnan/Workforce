@@ -4,29 +4,30 @@ import android.view.LayoutInflater;
 import android.view.ViewGroup;
 
 import com.square.workforce.R;
+import com.square.workforce.databinding.EmployeeCardBinding;
 import com.square.workforce.model.Employee;
 
 import java.util.List;
 
 import androidx.annotation.NonNull;
 import androidx.databinding.DataBindingUtil;
-import androidx.databinding.ViewDataBinding;
 import androidx.recyclerview.widget.RecyclerView;
 
 import static com.square.workforce.BR.model;
 
-public class EmployeesListAdapter extends RecyclerView.Adapter<EmployeesListAdapter.ViewHolder> {
+public class EmployeesListAdapter extends RecyclerView.Adapter<EmployeesListAdapter.ViewHolder> implements BindableAdapter {
 
-  private List<Employee> employeesList;
+  private List<Employee> employees;
 
-  public EmployeesListAdapter(@NonNull final List<Employee> employeesList) {
-    this.employeesList = employeesList;
+  @Override
+  public void setData(List<Employee> employees) {
+    this.employees = employees;
   }
 
   @NonNull
   @Override
   public EmployeesListAdapter.ViewHolder onCreateViewHolder(@NonNull final ViewGroup parent, final int viewType) {
-    ViewDataBinding binding = DataBindingUtil.inflate(
+    EmployeeCardBinding binding = DataBindingUtil.inflate(
       LayoutInflater.from(parent.getContext()),
       R.layout.employee_card, parent, false);
 
@@ -35,20 +36,20 @@ public class EmployeesListAdapter extends RecyclerView.Adapter<EmployeesListAdap
 
   @Override
   public void onBindViewHolder(final ViewHolder holder, final int position) {
-    Employee employee = employeesList.get(position);
+    Employee employee = employees.get(position);
     holder.bind(employee);
   }
 
 
   @Override
   public int getItemCount() {
-    return employeesList.size();
+    return employees.size();
   }
 
   public static class ViewHolder extends RecyclerView.ViewHolder {
-    public ViewDataBinding dataBinding;
+    public EmployeeCardBinding dataBinding;
 
-    public ViewHolder(final ViewDataBinding dataBinding) {
+    public ViewHolder(final EmployeeCardBinding dataBinding) {
       super(dataBinding.getRoot());
       this.dataBinding = dataBinding;
     }

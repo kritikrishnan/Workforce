@@ -30,94 +30,88 @@
 
       <TextView
         android:id="@+id/employee_name"
-        android:text="@{model.fullName}"
         style="@style/TextBody"
+        android:text="@{model.fullName}"
         app:layout_constraintStart_toEndOf="@+id/employee_email_label"
         app:layout_constraintTop_toTopOf="parent" />
 
       <TextView
         android:id="@+id/employee_type_label"
-        android:text="@string/employee_role_label"
         style="@style/TextLabel"
+        android:text="@string/employee_role_label"
         app:layout_constraintStart_toEndOf="@+id/employee_imageview"
         app:layout_constraintTop_toBottomOf="@id/employee_name_label" />
 
       <TextView
         android:id="@+id/employee_type"
-        android:text="@{model.role}"
         style="@style/TextBody"
+        android:text="@{model.role}"
         app:layout_constraintStart_toEndOf="@+id/employee_email_label"
         app:layout_constraintTop_toBottomOf="@id/employee_name" />
 
       <TextView
         android:id="@+id/employee_team_label"
-        android:text="@string/employee_team_label"
         style="@style/TextLabel"
+        android:text="@string/employee_team_label"
         app:layout_constraintStart_toEndOf="@+id/employee_imageview"
         app:layout_constraintTop_toBottomOf="@id/employee_type_label" />
 
       <TextView
         android:id="@+id/employee_team"
-        android:text="@{model.team}"
         style="@style/TextBody"
+        android:text="@{model.team}"
         app:layout_constraintStart_toEndOf="@+id/employee_email_label"
         app:layout_constraintTop_toBottomOf="@id/employee_type" />
 
       <TextView
         android:id="@+id/employee_email_label"
-        android:text="@string/employee_email_label"
         style="@style/TextLabel"
+        android:text="@string/employee_email_label"
         app:layout_constraintStart_toEndOf="@+id/employee_imageview"
         app:layout_constraintTop_toBottomOf="@id/employee_team_label" />
 
       <TextView
         android:id="@+id/employee_email"
-        android:text="@{model.emailAddress}"
         style="@style/TextBody"
+        android:text="@{model.emailAddress}"
         app:layout_constraintStart_toEndOf="@+id/employee_email_label"
         app:layout_constraintTop_toBottomOf="@id/employee_team" />
 
       <TextView
         android:id="@+id/employee_phnumber_label"
-        android:text="@string/employee_phone_number"
         style="@style/TextLabel"
+        android:text="@string/employee_phone_number"
         app:layout_constraintStart_toEndOf="@+id/employee_imageview"
         app:layout_constraintTop_toBottomOf="@id/employee_email_label" />
 
       <TextView
         android:id="@+id/employee_phnumber"
-        android:text="@{model.phoneNumber}"
         style="@style/TextBody"
+        android:text="@{model.phoneNumber}"
         app:layout_constraintStart_toEndOf="@+id/employee_email_label"
         app:layout_constraintTop_toBottomOf="@id/employee_email" />
 
       <TextView
         android:id="@+id/employee_biography_label"
-        android:text="@string/employee_biography_label"
         style="@style/TextLabel"
+        android:text="@string/employee_biography_label"
         app:layout_constraintStart_toEndOf="@+id/employee_imageview"
         app:layout_constraintTop_toBottomOf="@id/employee_phnumber_label" />
 
       <TextView
         android:id="@+id/employee_biography"
-        android:text="@{model.biography}"
         style="@style/TextBody"
+        android:text="@{model.biography}"
         app:layout_constraintStart_toEndOf="@+id/employee_email_label"
         app:layout_constraintTop_toBottomOf="@id/employee_phnumber" />
     </androidx.constraintlayout.widget.ConstraintLayout>
   </androidx.cardview.widget.CardView>
-
 
   <data>
 
     <variable
       name="model"
       type="com.square.workforce.model.Employee" />
-
-    <variable
-      name="viewModel"
-      type="com.square.workforce.WorkForceViewModel" />
   </data>
-
 
 </layout>
