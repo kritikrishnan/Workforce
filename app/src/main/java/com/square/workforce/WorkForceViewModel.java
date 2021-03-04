@@ -2,26 +2,27 @@ package com.square.workforce;
 
 
 import com.square.workforce.model.Employee;
+import com.square.workforce.model.Employees;
 import com.square.workforce.repository.EmployeesRepository;
-import com.square.workforce.view.adapter.BindableAdapter;
 
 import java.util.Collections;
 import java.util.Comparator;
-import java.util.List;
 
 import androidx.annotation.NonNull;
-import androidx.databinding.BindingAdapter;
-import androidx.lifecycle.MutableLiveData;
+import androidx.lifecycle.MediatorLiveData;
 import androidx.lifecycle.ViewModel;
-import androidx.recyclerview.widget.RecyclerView;
+import lombok.Getter;
 
 /*
 BusinessLogic.
  */
 public class WorkForceViewModel extends ViewModel {
-  private static final String SORT_BY_NAME = "name";
-  private MutableLiveData<List<Employee>> employeesLiveData;
-  public List<Employee> employees;
+  private static final String TAG = "WorkForceViewModel";
+  public static final String SORT_BY_NAME = "name";
+
+  @Getter
+  private MediatorLiveData<Employees> employeesLiveData = new MediatorLiveData<>();
+
 
   private EmployeesRepository employeesRepository;
 
@@ -35,39 +36,23 @@ public class WorkForceViewModel extends ViewModel {
       return;
     }
     employeesRepository = EmployeesRepository.getInstance();
-    populateEmployees();
+    employeesRepository.populateEmployees();
+    employeesLiveData.addSource(employeesRepository.getEmployeesLiveData(), employees -> employeesLiveData.setValue(employees));
+    if (employeesLiveData.getValue() == null) {
+      employeesLiveData.setValue(new Employees());
+    }
   }
 
-  public void populateEmployees() {
-    employeesLiveData = employeesRepository.getEmployees();
-    sortEmployeesByParameter(SORT_BY_NAME);
-    employees = employeesLiveData.getValue();
-  }
-
-   public void sortEmployeesByParameter(@NonNull final String sortingParameter) {
+   public Employees sortEmployeesByParameter(@NonNull final String sortingParameter, @NonNull final Employees employees) {
      switch (sortingParameter) {
-       case SORT_BY_NAME: sortEmployeesByName(); break;
-
-       default: break;
+       case SORT_BY_NAME: return sortEmployeesByName(employees);
      }
-     employeesLiveData.postValue(employeesLiveData.getValue()); //post to update change in data
+     return employees;
    }
 
-  private void sortEmployeesByName() {
-    if (employeesLiveData.getValue() == null) {return;}
-    final Comparator<Employee> comparator = new Comparator<Employee>() {
-      @Override
-      public int compare(Employee employee1, Employee employee2) {
-        return employee1.getFullName().compareTo(employee2.getFullName());
-      }
-    };
-    Collections.sort(employeesLiveData.getValue(), comparator);
-  }
-
-  @BindingAdapter("employees")
-  public void bindEmployeeDataToRecyclerViewAdapter(@NonNull final RecyclerView recyclerView, final List<Employee> employees) {
-    if (recyclerView.getAdapter() instanceof BindableAdapter) {
-      ((BindableAdapter)recyclerView.getAdapter()).setData(employees);
-    }
+  private Employees sortEmployeesByName(@NonNull final Employees employees) {
+    final Comparator<Employee> comparator = (employee1, employee2) -> employee1.getFullName().compareTo(employee2.getFullName());
+    Collections.sort(employees.getEmployees(), comparator);
+    return employees;
   }
 }

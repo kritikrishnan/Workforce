@@ -5,91 +5,91 @@
   <androidx.cardview.widget.CardView
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_margin="10dp">
+    android:layout_margin="10dp"
+    android:padding="10dp">
 
     <androidx.constraintlayout.widget.ConstraintLayout
       android:layout_width="match_parent"
       android:layout_height="match_parent"
-      android:padding="20dp">
+      android:padding="20dp">>
 
       <ImageView
         android:id="@+id/employee_imageview"
+        android:layout_width="230dp"
+        android:layout_height="230dp"
+        android:layout_marginStart="10dp"
         android:src="@{model.photoUrlSmall}"
-        android:layout_width="130dp"
-        android:layout_height="130dp"
         android:contentDescription="@string/employee_image_small"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.105" />
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="@id/start_guideline"
+        app:layout_constraintTop_toTopOf="parent" />
 
       <TextView
         android:id="@+id/employee_name_label"
-        style="@style/WrapWrap"
-        android:paddingStart="24dp"
+        style="@style/TextLabelLandscape"
         android:text="@string/employee_name_label"
         app:layout_constraintStart_toEndOf="@+id/employee_imageview"
         app:layout_constraintTop_toTopOf="parent" />
 
       <TextView
         android:id="@+id/employee_name"
-        style="@style/WrapWrap"
-        android:paddingStart="24dp"
+        style="@style/TextBodyLandscape"
         android:text="@{model.fullName}"
-        app:layout_constraintStart_toEndOf="@+id/employee_name_label"
+        app:layout_constraintStart_toEndOf="@+id/employee_email_label"
         app:layout_constraintTop_toTopOf="parent" />
 
       <TextView
         android:id="@+id/employee_type_label"
-        style="@style/TextLabel"
+        style="@style/TextLabelLandscape"
         android:text="@string/employee_role_label"
         app:layout_constraintStart_toEndOf="@+id/employee_imageview"
         app:layout_constraintTop_toBottomOf="@id/employee_name_label" />
 
       <TextView
         android:id="@+id/employee_type"
-        style="@style/TextBody"
+        style="@style/TextBodyLandscape"
         android:text="@{model.employeeType}"
-        app:layout_constraintStart_toEndOf="@+id/employee_name_label"
+        app:layout_constraintStart_toEndOf="@+id/employee_email_label"
         app:layout_constraintTop_toBottomOf="@id/employee_name" />
 
       <TextView
         android:id="@+id/employee_team_label"
-        style="@style/TextLabel"
+        style="@style/TextLabelLandscape"
         android:text="@string/employee_team_label"
         app:layout_constraintStart_toEndOf="@+id/employee_imageview"
         app:layout_constraintTop_toBottomOf="@id/employee_type_label" />
 
       <TextView
         android:id="@+id/employee_team"
-        style="@style/TextBody"
+        style="@style/TextBodyLandscape"
         android:text="@{model.team}"
-        app:layout_constraintStart_toEndOf="@+id/employee_name_label"
+        app:layout_constraintStart_toEndOf="@+id/employee_email_label"
         app:layout_constraintTop_toBottomOf="@id/employee_type" />
 
       <TextView
         android:id="@+id/employee_email_label"
         style="@style/TextLabelLandscape"
         android:text="@string/employee_email_label"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/employee_imageview" />
+        app:layout_constraintStart_toEndOf="@+id/employee_imageview"
+        app:layout_constraintTop_toBottomOf="@id/employee_team_label" />
 
       <TextView
         android:id="@+id/employee_email"
-        style="@style/TextBody"
+        style="@style/TextBodyLandscape"
         android:text="@{model.emailAddress}"
         app:layout_constraintStart_toEndOf="@+id/employee_email_label"
-        app:layout_constraintTop_toBottomOf="@id/employee_imageview" />
+        app:layout_constraintTop_toBottomOf="@id/employee_team" />
 
       <TextView
         android:id="@+id/employee_phnumber_label"
         style="@style/TextLabelLandscape"
         android:text="@string/employee_phone_number"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/employee_imageview"
         app:layout_constraintTop_toBottomOf="@id/employee_email_label" />
 
       <TextView
         android:id="@+id/employee_phnumber"
-        style="@style/TextBody"
+        style="@style/TextBodyLandscape"
         android:text="@{model.phoneNumber}"
         app:layout_constraintStart_toEndOf="@+id/employee_email_label"
         app:layout_constraintTop_toBottomOf="@id/employee_email" />
@@ -97,20 +97,26 @@
       <TextView
         android:id="@+id/employee_biography_label"
         style="@style/TextLabelLandscape"
-        android:layout_marginBottom="20dp"
         android:text="@string/employee_biography_label"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/employee_imageview"
         app:layout_constraintTop_toBottomOf="@id/employee_phnumber_label"
-        app:layout_constraintBottom_toBottomOf="parent" />
+        app:layout_constraintBottom_toBottomOf="parent"/>
 
       <TextView
         android:id="@+id/employee_biography"
-        style="@style/TextBody"
-        android:text="@{model.biography}"
+        style="@style/TextBodyLandscape"
         android:maxLines="10"
+        android:text="@{model.biography}"
         app:layout_constraintStart_toEndOf="@+id/employee_email_label"
-        app:layout_constraintTop_toBottomOf="@id/employee_phnumber" />
+        app:layout_constraintTop_toBottomOf="@id/employee_phnumber"
+        app:layout_constraintBottom_toBottomOf="parent" />
 
+      <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/start_guideline"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.01" />
     </androidx.constraintlayout.widget.ConstraintLayout>
   </androidx.cardview.widget.CardView>
 

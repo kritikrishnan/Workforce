@@ -1,12 +1,16 @@
 package com.square.workforce.repository;
 
-import com.square.workforce.model.Employee;
+import android.util.Log;
+
+import com.square.workforce.model.Employees;
 import com.square.workforce.remotedatasource.EmployeeApi;
 import com.square.workforce.remotedatasource.RetrofitService;
 
-import java.util.List;
+import java.util.Arrays;
 
+import androidx.annotation.NonNull;
 import androidx.lifecycle.MutableLiveData;
+import lombok.Getter;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -18,8 +22,10 @@ import retrofit2.Response;
 */
 public class EmployeesRepository {
 
-  final MutableLiveData<List<Employee>> employeesLiveData = new MutableLiveData<>();
+  @Getter
+  final MutableLiveData<Employees> employeesLiveData = new MutableLiveData<>();
   private static EmployeesRepository employeesRepository;
+  private static final String TAG = "Employees Repository";
 
   public static EmployeesRepository getInstance(){
     if (employeesRepository == null){
@@ -34,22 +40,23 @@ public class EmployeesRepository {
     employeeApi = RetrofitService.employeesService(EmployeeApi.class);
   }
 
-  public MutableLiveData<List<Employee>> getEmployees(){
-    employeeApi.getEmployees().enqueue(new Callback<List<Employee>>() {
+  public void populateEmployees(){
+    employeeApi.getEmployees().enqueue(new Callback<Employees>() {
       @Override
-      public void onResponse(Call<List<Employee>> call, Response<List<Employee>> response) {
+      public void onResponse(@NonNull Call<Employees> call, @NonNull Response<Employees> response) {
         if (response.isSuccessful()) {
+          Log.d(TAG, "Successfully received data");
           employeesLiveData.setValue(response.body());
+          employeesLiveData.postValue(response.body());
+        } else {
+          Log.d(TAG, "Exception" + response.errorBody());
         }
-        //TODO: handle else
       }
 
       @Override
-      public void onFailure(Call<List<Employee>> call, Throwable throwable) {
-        //TODO: handle failure
+      public void onFailure(@NonNull Call<Employees> call, @NonNull Throwable throwable) {
+        Log.d(TAG, "Exception" + throwable.getCause() + " " + Arrays.toString(throwable.getStackTrace()));
       }
     });
-
-    return employeesLiveData;
   }
 }

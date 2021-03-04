@@ -4,7 +4,6 @@ import com.google.gson.annotations.SerializedName;
 
 import lombok.Getter;
 import lombok.Setter;
-import retrofit2.http.Url;
 
 @Getter
 @Setter
@@ -21,15 +20,36 @@ public class Employee {
 
   private String biography;
 
-  @SerializedName("image_url_large")
-  private Url photoUrlLarge;
+  @SerializedName("photo_url_large")
+  private String photoUrlLarge;
 
-  @SerializedName("image_url_small")
-  private Url photoUrlSmall;
+  @SerializedName("photo_url_small")
+  private String photoUrlSmall;
 
   private String team;
 
   @SerializedName("employee_type")
-  private String role;
+  private String employeeType;
 
+  public enum EmployeeTypes {
+    FULL_TIME,
+    PART_TIME,
+    CONTRACTOR
+  }
+
+  public void populateEmployeeType(Employees employees) {
+    for (Employee employee : employees.getEmployees()) {
+      switch (Employee.EmployeeTypes.valueOf(employee.getEmployeeType())) {
+        case FULL_TIME:
+          employee.setEmployeeType("Full time");
+          break;
+        case PART_TIME:
+          employee.setEmployeeType("Part time");
+          break;
+        case CONTRACTOR:
+          employee.setEmployeeType("Contractor");
+          break;
+      }
+    }
+  }
 }

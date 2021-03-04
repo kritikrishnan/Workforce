@@ -1,9 +1,7 @@
 package com.square.workforce.view.adapter;
 
-import com.square.workforce.model.Employee;
-
-import java.util.List;
+import com.square.workforce.model.Employees;
 
 public interface BindableAdapter {
-  void setData(List<Employee> employeesList);
+  void setData(Employees employeesList);
 }
