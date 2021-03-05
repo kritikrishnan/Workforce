@@ -2,7 +2,8 @@
 WorkForce Application 
 
 
-This is an Employee data application, designed for merchants who use the square POS. 
+This is an Employee data application, designed for merchants who use the square POS. The application was created with aPhone in Focus. 
+It was manually tested on a Google Pixel with Nougat and API level 28.
 
 Features and specifications
 
@@ -35,6 +36,8 @@ This application at it’s current state has a wide range of possibilities for e
 - Implement a search or a way to filter the employees
 - Update or Edit employee details. 
 - Enlarge employee image
+- Expand to tablet and night mode
+- Add Localization support
 
 2. Architecture and design -
 
@@ -61,3 +64,7 @@ Following are the Gradle options and dependencies used -
 - Picasso to fetch, load and cache images
 - Constraint layout and recycler view to populate UI
 - Robelectric for testing purpose
+
+Time spent - 
+
+- Since the work was done in between work, I don't have a useful calculation of time. I sporadiaclly split it through the week. 
