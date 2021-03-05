@@ -13,6 +13,7 @@ import androidx.annotation.NonNull;
 import androidx.lifecycle.MediatorLiveData;
 import androidx.lifecycle.ViewModel;
 import lombok.Getter;
+import lombok.Setter;
 
 /*
 BusinessLogic.
@@ -22,9 +23,11 @@ public class WorkForceViewModel extends ViewModel {
   public static final String SORT_BY_NAME = "name";
 
   @Getter
+  @Setter
   private MediatorLiveData<Employees> employeesLiveData = new MediatorLiveData<>();
 
   @Getter
+  @Setter
   private MediatorLiveData<State> stateLiveData = new MediatorLiveData<>();
 
   private EmployeesRepository employeesRepository;
@@ -57,11 +60,18 @@ public class WorkForceViewModel extends ViewModel {
 
   private Employees sortEmployeesByName(@NonNull final Employees employees) {
     final Comparator<Employee> comparator = (employee1, employee2) -> {
-      if (employee1.getFullName() != null && employee2.getFullName() != null) {
-        return employee1.getFullName().compareTo(employee2.getFullName());
+
+      if (employee1.getFullName() == null && employee2.getFullName() == null) {
+        return 0;
       }
-      return 0;
+
+      if (employee1.getFullName() == null || employee2.getFullName() == null) {
+        return employee1.getFullName() == null ? -1 : 1;
+      }
+
+      return employee1.getFullName().compareTo(employee2.getFullName());
     };
+
     Collections.sort(employees.getEmployees(), comparator);
     return employees;
   }

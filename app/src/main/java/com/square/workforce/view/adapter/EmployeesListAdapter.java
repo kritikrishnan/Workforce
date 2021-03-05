@@ -16,6 +16,7 @@ import com.squareup.picasso.Picasso;
 import androidx.annotation.NonNull;
 import androidx.databinding.DataBindingUtil;
 import androidx.recyclerview.widget.RecyclerView;
+import lombok.Getter;
 import lombok.Setter;
 
 import static com.square.workforce.BR.model;
@@ -23,7 +24,9 @@ import static com.square.workforce.BR.model;
 public class EmployeesListAdapter extends RecyclerView.Adapter<EmployeesListAdapter.ViewHolder> {
 
   private static final String TAG = "EmployeesListAdapter";
+
   @Setter
+  @Getter
   private Employees employees;
 
   public EmployeesListAdapter(final Employees employees) {

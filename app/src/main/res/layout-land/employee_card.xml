@@ -11,7 +11,7 @@
     <androidx.constraintlayout.widget.ConstraintLayout
       android:layout_width="match_parent"
       android:layout_height="match_parent"
-      android:padding="20dp">
+      android:padding="10dp">
 
       <ImageView
         android:id="@+id/employee_imageview"
@@ -37,6 +37,7 @@
         android:id="@+id/employee_name"
         style="@style/WrapWrap"
         android:paddingStart="24dp"
+        android:maxWidth="260dp"
         android:hint="@string/not_available"
         android:text="@{model.fullName, default=`N/A`}"
         app:layout_constraintStart_toEndOf="@+id/employee_email_label"
