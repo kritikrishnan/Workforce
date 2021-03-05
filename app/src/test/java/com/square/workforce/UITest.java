@@ -1,7 +1,6 @@
 package com.square.workforce;
 
 import android.os.Build;
-import android.os.Handler;
 import android.os.Looper;
 
 import com.square.workforce.model.Employees;
@@ -17,13 +16,6 @@ import org.robolectric.Shadows;
 import org.robolectric.annotation.Config;
 import org.robolectric.annotation.LooperMode;
 
-import java.util.ArrayList;
-import java.util.List;
-
-import androidx.lifecycle.MediatorLiveData;
-
-import static android.os.Looper.getMainLooper;
-import static org.robolectric.Shadows.shadowOf;
 import static org.robolectric.annotation.LooperMode.Mode.PAUSED;
 
 @RunWith(RobolectricTestRunner.class)
