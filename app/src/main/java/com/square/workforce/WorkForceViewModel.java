@@ -3,6 +3,7 @@ package com.square.workforce;
 
 import com.square.workforce.model.Employee;
 import com.square.workforce.model.Employees;
+import com.square.workforce.model.State;
 import com.square.workforce.repository.EmployeesRepository;
 
 import java.util.Collections;
@@ -23,6 +24,8 @@ public class WorkForceViewModel extends ViewModel {
   @Getter
   private MediatorLiveData<Employees> employeesLiveData = new MediatorLiveData<>();
 
+  @Getter
+  private MediatorLiveData<State> stateLiveData = new MediatorLiveData<>();
 
   private EmployeesRepository employeesRepository;
 
@@ -35,12 +38,14 @@ public class WorkForceViewModel extends ViewModel {
     if (employeesRepository != null) {
       return;
     }
+    //set initial values to live data
+    stateLiveData.setValue(State.LOADING);
+    employeesLiveData.setValue(new Employees());
+
     employeesRepository = EmployeesRepository.getInstance();
     employeesRepository.populateEmployees();
     employeesLiveData.addSource(employeesRepository.getEmployeesLiveData(), employees -> employeesLiveData.setValue(employees));
-    if (employeesLiveData.getValue() == null) {
-      employeesLiveData.setValue(new Employees());
-    }
+    stateLiveData.addSource(employeesRepository.getState(), state -> stateLiveData.setValue(state));
   }
 
    public Employees sortEmployeesByParameter(@NonNull final String sortingParameter, @NonNull final Employees employees) {
@@ -51,7 +56,12 @@ public class WorkForceViewModel extends ViewModel {
    }
 
   private Employees sortEmployeesByName(@NonNull final Employees employees) {
-    final Comparator<Employee> comparator = (employee1, employee2) -> employee1.getFullName().compareTo(employee2.getFullName());
+    final Comparator<Employee> comparator = (employee1, employee2) -> {
+      if (employee1.getFullName() != null && employee2.getFullName() != null) {
+        return employee1.getFullName().compareTo(employee2.getFullName());
+      }
+      return 0;
+    };
     Collections.sort(employees.getEmployees(), comparator);
     return employees;
   }

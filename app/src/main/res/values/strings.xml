@@ -7,4 +7,8 @@
   <string name="employee_email_label"><u><b>Email address</b></u></string>
   <string name="employee_phone_number"><u><b>Phone number</b></u></string>
   <string name="employee_biography_label"><u><b>Biography</b></u></string>
+  <string name="error_image">error image</string>
+  <string name="not_available">N/A</string>
+  <string name="no_employees_to_list">No employees to list</string>
+  <string name="something_went_wrong">Hmm.. Something went wrong</string>
 </resources>

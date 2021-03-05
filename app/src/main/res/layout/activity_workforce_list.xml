@@ -6,12 +6,52 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <androidx.constraintlayout.widget.Guideline
-      android:id="@+id/start_guideline"
+    <ProgressBar
+      android:id="@+id/progress"
       android:layout_width="wrap_content"
       android:layout_height="wrap_content"
-      android:orientation="vertical"
-      app:layout_constraintGuide_percent="0.01" />
+      android:indeterminate="true"
+      android:minWidth="120dp"
+      android:minHeight="120dp"
+      android:progress="1"
+      android:visibility="visible"
+      app:flow_horizontalAlign="center"
+      app:flow_verticalAlign="center"
+      app:layout_constraintBottom_toBottomOf="parent"
+      app:layout_constraintEnd_toEndOf="parent"
+      app:layout_constraintStart_toStartOf="parent"
+      app:layout_constraintTop_toTopOf="parent" />
+
+    <androidx.recyclerview.widget.RecyclerView
+      android:id="@+id/employees_recycler_view"
+      android:layout_width="match_parent"
+      android:layout_height="match_parent"
+      android:padding="10dp"
+      app:layout_constraintBottom_toBottomOf="parent"
+      app:layout_constraintEnd_toEndOf="parent"
+      app:layout_constraintStart_toStartOf="parent"
+      app:layout_constraintTop_toTopOf="parent" />
+
+    <ViewFlipper
+      android:id="@+id/viewFlipper"
+      android:visibility="gone"
+      android:layout_width="match_parent"
+      android:layout_height="match_parent" >
+
+      <include layout="@layout/error_layout"
+        android:visibility="gone"
+        android:id="@+id/error_layout_id"/>
+
+      <include layout="@layout/empty_layout"
+        android:visibility="gone"
+        android:id="@+id/empty_layout_id"/>
+
+      <TextView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center" />
+
+    </ViewFlipper>
 
     <androidx.constraintlayout.widget.Guideline
       android:id="@+id/end_guideline"
@@ -20,14 +60,12 @@
       android:orientation="vertical"
       app:layout_constraintGuide_percent="0.99" />
 
-    <androidx.recyclerview.widget.RecyclerView
-      android:id="@+id/employeesRecyclerView"
-      android:layout_width="match_parent"
-      android:layout_height="match_parent"
-      app:layout_constraintBottom_toBottomOf="parent"
-      app:layout_constraintStart_toStartOf="@id/start_guideline"
-      app:layout_constraintEnd_toEndOf="parent"
-      app:layout_constraintTop_toTopOf="parent" />
+    <androidx.constraintlayout.widget.Guideline
+      android:id="@+id/start_guideline"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:orientation="vertical"
+      app:layout_constraintGuide_percent="0.01" />
 
   </androidx.constraintlayout.widget.ConstraintLayout>
 

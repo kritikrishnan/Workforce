@@ -3,6 +3,7 @@ package com.square.workforce.repository;
 import android.util.Log;
 
 import com.square.workforce.model.Employees;
+import com.square.workforce.model.State;
 import com.square.workforce.remotedatasource.EmployeeApi;
 import com.square.workforce.remotedatasource.RetrofitService;
 
@@ -22,8 +23,13 @@ import retrofit2.Response;
 */
 public class EmployeesRepository {
 
+
   @Getter
   final MutableLiveData<Employees> employeesLiveData = new MutableLiveData<>();
+
+  @Getter
+  final MutableLiveData<State> state = new MutableLiveData<>();
+
   private static EmployeesRepository employeesRepository;
   private static final String TAG = "Employees Repository";
 
@@ -41,20 +47,29 @@ public class EmployeesRepository {
   }
 
   public void populateEmployees(){
+    state.setValue(State.LOADED);
     employeeApi.getEmployees().enqueue(new Callback<Employees>() {
       @Override
       public void onResponse(@NonNull Call<Employees> call, @NonNull Response<Employees> response) {
         if (response.isSuccessful()) {
-          Log.d(TAG, "Successfully received data");
+          if (response.body() != null && response.body().getEmployees().isEmpty()) {
+            Log.d(TAG, "response was empty");
+            state.setValue(State.EMPTY);
+          } else {
+            Log.d(TAG, "Successfully received data");
+            state.setValue(State.LOADED);
+          }
           employeesLiveData.setValue(response.body());
           employeesLiveData.postValue(response.body());
         } else {
-          Log.d(TAG, "Exception" + response.errorBody());
+          state.setValue(State.ERROR);
+          Log.d(TAG, "Something went wrong " + response.errorBody());
         }
       }
 
       @Override
       public void onFailure(@NonNull Call<Employees> call, @NonNull Throwable throwable) {
+        state.setValue(State.ERROR);
         Log.d(TAG, "Exception" + throwable.getCause() + " " + Arrays.toString(throwable.getStackTrace()));
       }
     });

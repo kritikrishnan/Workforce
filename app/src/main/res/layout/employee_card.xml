@@ -34,7 +34,8 @@
         android:id="@+id/employee_name"
         style="@style/WrapWrap"
         android:paddingStart="24dp"
-        android:text="@{model.fullName}"
+        android:hint="@string/not_available"
+        android:text="@{model.fullName, default=`N/A`}"
         app:layout_constraintStart_toEndOf="@+id/employee_name_label"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -48,7 +49,8 @@
       <TextView
         android:id="@+id/employee_type"
         style="@style/TextBody"
-        android:text="@{model.employeeType}"
+        android:hint="@string/not_available"
+        android:text="@{model.employeeType, default=`N/A`}"
         app:layout_constraintStart_toEndOf="@+id/employee_name_label"
         app:layout_constraintTop_toBottomOf="@id/employee_name" />
 
@@ -62,13 +64,14 @@
       <TextView
         android:id="@+id/employee_team"
         style="@style/TextBody"
-        android:text="@{model.team}"
+        android:hint="@string/not_available"
+        android:text="@{model.team, default=`N/A`}"
         app:layout_constraintStart_toEndOf="@+id/employee_name_label"
         app:layout_constraintTop_toBottomOf="@id/employee_type" />
 
       <TextView
         android:id="@+id/employee_email_label"
-        style="@style/TextLabelLandscape"
+        style="@style/TextLabelPortraitBelow"
         android:text="@string/employee_email_label"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/employee_imageview" />
@@ -76,13 +79,14 @@
       <TextView
         android:id="@+id/employee_email"
         style="@style/TextBody"
-        android:text="@{model.emailAddress}"
+        android:hint="@string/not_available"
+        android:text="@{model.emailAddress, default=`N/A`}"
         app:layout_constraintStart_toEndOf="@+id/employee_email_label"
         app:layout_constraintTop_toBottomOf="@id/employee_imageview" />
 
       <TextView
         android:id="@+id/employee_phnumber_label"
-        style="@style/TextLabelLandscape"
+        style="@style/TextLabelPortraitBelow"
         android:text="@string/employee_phone_number"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/employee_email_label" />
@@ -90,13 +94,14 @@
       <TextView
         android:id="@+id/employee_phnumber"
         style="@style/TextBody"
-        android:text="@{model.phoneNumber}"
+        android:hint="@string/not_available"
+        android:text="@{model.phoneNumber, default=`N/A`}"
         app:layout_constraintStart_toEndOf="@+id/employee_email_label"
         app:layout_constraintTop_toBottomOf="@id/employee_email" />
 
       <TextView
         android:id="@+id/employee_biography_label"
-        style="@style/TextLabelLandscape"
+        style="@style/TextLabelPortraitBelow"
         android:layout_marginBottom="20dp"
         android:text="@string/employee_biography_label"
         app:layout_constraintStart_toStartOf="parent"
@@ -106,7 +111,8 @@
       <TextView
         android:id="@+id/employee_biography"
         style="@style/TextBody"
-        android:text="@{model.biography}"
+        android:hint="@string/not_available"
+        android:text="@{model.biography, default=`N/A`}"
         android:maxLines="10"
         app:layout_constraintStart_toEndOf="@+id/employee_email_label"
         app:layout_constraintTop_toBottomOf="@id/employee_phnumber" />

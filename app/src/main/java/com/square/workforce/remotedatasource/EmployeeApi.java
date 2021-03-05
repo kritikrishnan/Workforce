@@ -7,7 +7,7 @@ import retrofit2.http.GET;
 
 public interface EmployeeApi {
 
-  @GET("employees.json")
+  @GET("employees_empty.json")
   Call<Employees> getEmployees();
 
 }
